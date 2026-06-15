@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SIGAA 2.0 - Home</title>
-    <!-- FontAwesome para os ícones do app oficial da UFERSA -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -31,7 +30,7 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
-            padding-bottom: 70px; /* Espaço para a barra inferior no mobile */
+            padding-bottom: 70px;
         }
 
         .app-container {
@@ -54,6 +53,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
         }
 
         .brand h1 {
@@ -105,10 +105,6 @@
             border: 2px solid var(--brand-color);
         }
 
-        .user-avatar span {
-            display: inline-block;
-        }
-
         /* SEÇÃO DE MATÉRIAS */
         .section-title {
             font-size: 1.25rem;
@@ -144,11 +140,6 @@
             background-color: var(--bg-hover);
         }
 
-        .materia-card.active {
-            border-color: var(--brand-color);
-            box-shadow: 0 0 10px rgba(0, 179, 126, 0.15);
-        }
-
         .materia-icon {
             font-size: 2rem;
             color: var(--brand-color);
@@ -180,7 +171,7 @@
             font-weight: bold;
         }
 
-        /* CONTAINER SPLIT BOTTOM */
+        /* CONTAINER SPLIT BOTTOM (HOME) */
         .bottom-split-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -197,13 +188,13 @@
             height: 400px;
         }
 
-        /* FEED DE NOTÍCIAS */
-        .feed-scroll {
+        .feed-scroll, .chat-messages {
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 12px;
             padding-right: 5px;
+            flex: 1;
         }
 
         .feed-item {
@@ -225,26 +216,11 @@
             margin-bottom: 4px;
         }
 
-        .feed-item p {
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        /* CHAT DE GRUPO */
-        .chat-messages {
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding-right: 5px;
-            flex: 1;
-            margin-bottom: 15px;
-        }
-
         .message-row {
             display: flex;
             gap: 12px;
             align-items: flex-start;
+            margin-bottom: 10px;
         }
 
         .chat-avatar {
@@ -273,41 +249,274 @@
             color: var(--text-muted);
         }
 
-        .message-content p {
-            font-size: 0.9rem;
-            color: #fff;
+        /* 🖥️ TELA INTERNA DA MATÉRIA */
+        .page-materia {
+            display: none;
         }
 
-        .chat-input-area {
+        .btn-back {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* MENUS SUB-ABAS INTERNAS */
+        .materia-tabs {
             display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background-color: var(--bg-hover);
+            color: #fff;
+            border-color: var(--brand-color);
+        }
+
+        /* Conteúdos das Abas */
+        .tab-content {
+            display: none;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            min-height: 350px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* FORMULÁRIOS DE INSERÇÃO MANUAL */
+        .manual-form {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
-        .chat-input-area input {
-            flex: 1;
+        .manual-form input, .manual-form select, .manual-form textarea {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            outline: none;
+            width: 100%;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: var(--bg-card);
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .manual-form button {
+            background-color: var(--brand-color);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+
+        /* LISTA DE TRABALHOS DE EQUIPE CRIADOS */
+        .trabalhos-criados-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .trabalho-equipe-card {
             background-color: var(--bg-dark);
             border: 1px solid var(--border-color);
-            padding: 12px;
-            border-radius: 8px;
-            color: #fff;
-            outline: none;
-        }
-
-        .btn-send {
-            background-color: var(--brand-color);
-            border: none;
-            color: #fff;
-            padding: 0 16px;
+            padding: 20px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: border-color 0.2s;
         }
 
-        .btn-send:hover {
-            background-color: #00875f;
+        .trabalho-equipe-card:hover {
+            border-color: var(--brand-color);
         }
 
-        /* BARRA DE NAVEGAÇÃO INFERIOR (MOBILE APENAS) */
+        .trabalho-equipe-card h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .trabalho-equipe-card .membros-badges {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        /* 🚪 ÁREA INTERNA DO GERENCIADOR DE UM TRABALHO ESPECÍFICO */
+        .workspace-trabalho {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .workspace-grid { grid-template-columns: 1fr; }
+        }
+
+        .upload-box {
+            border: 2px dashed var(--border-color);
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .upload-box i {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* KANBAN */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .kanban-board { grid-template-columns: 1fr; }
+        }
+
+        .kanban-column {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .kanban-column h5 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .kanban-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        
+        .owner-badge {
+            display: inline-block;
+            margin-top: 6px;
+            background-color: var(--bg-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--brand-color);
+            border: 1px solid var(--brand-color);
+        }
+
+        /* GRID DE ALUNOS */
+        .alunos-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .aluno-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--bg-dark);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* TABELA DE NOTAS */
+        .table-notas {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .table-notas th, .table-notas td {
+            padding: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table-notas th {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        /* BARRA DE NAVEGAÇÃO INFERIOR MOBILE */
         .mobile-nav {
             display: none;
             position: fixed;
@@ -331,88 +540,14 @@
             gap: 4px;
         }
 
-        .mobile-nav-item.active {
-            color: var(--brand-color);
-        }
-
-        .mobile-nav-item i {
-            font-size: 1.2rem;
-        }
-
-        /* 📱 REGRAS DE RESPONSIVIDADE (MEDIA QUERIES) */
-        @media (max-width: 900px) {
-            .bottom-split-container {
-                grid-template-columns: 1fr;
-            }
-        }
+        .mobile-nav-item.active { color: var(--brand-color); }
 
         @media (max-width: 600px) {
-            .app-container {
-                padding: 12px;
-            }
-
-            .main-header {
-                margin-bottom: 20px;
-            }
-
-            .search-bar {
-                display: none; /* Esconde a busca em telas muito pequenas para poupar espaço */
-            }
-
-            .user-avatar span {
-                display: none; /* Esconde o nome do usuário, deixa só a foto no header */
-            }
-
-            .materias-grid {
-                grid-template-columns: 1fr; /* Força os cards de matéria a ficarem um por linha */
-                gap: 12px;
-                margin-bottom: 25px;
-            }
-
-            .materia-card {
-                padding: 16px;
-                flex-direction: row; /* Alinha o ícone do lado do texto para virar uma lista compacta */
-                align-items: center;
-                gap: 15px;
-            }
-
-            .materia-icon {
-                font-size: 1.5rem;
-            }
-
-            .materia-card h3 {
-                font-size: 1rem;
-            }
-
-            .materia-footer {
-                margin-top: 0;
-                margin-left: auto; /* Joga as tags/badges pro canto direito */
-                flex-direction: column;
-                align-items: flex-end;
-                gap: 4px;
-            }
-
-            .split-block {
-                height: 350px; /* Reduz ligeiramente a altura dos blocos no mobile */
-                padding: 15px;
-            }
-
-            /* Ativa a barra de navegação inferior estilo aplicativo de celular */
-            .mobile-nav {
-                display: flex;
-            }
-        }
-
-        /* Scrollbar estilizada */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-dark);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
+            .search-bar, .user-avatar span { display: none; }
+            .materias-grid { grid-template-columns: 1fr; gap: 12px; }
+            .materia-card { flex-direction: row; align-items: center; padding: 16px; }
+            .materia-footer { margin-left: auto; flex-direction: column; align-items: flex-end; gap: 4px; }
+            .mobile-nav { display: flex; }
         }
     </style>
 </head>
@@ -420,9 +555,8 @@
 
     <div class="app-container">
         
-        <!-- HEADER SUPERIOR -->
         <header class="main-header">
-            <div class="brand">
+            <div class="brand" onclick="showHome()">
                 <span class="logo-brackets">{</span><h1>SIGAA 2.0</h1><span class="logo-brackets">}</span>
             </div>
             <div class="header-right">
@@ -437,15 +571,11 @@
             </div>
         </header>
 
-        <!-- CONTEÚDO PRINCIPAL -->
-        <main class="content-layout">
-            
-            <!-- SEÇÃO 1: GRADE DE MATÉRIAS -->
+        <div id="page-home" class="page-home">
             <section class="section-materias">
                 <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Minhas Matérias</h2>
                 <div class="materias-grid">
-                    
-                    <div class="materia-card active">
+                    <div class="materia-card" onclick="openMateria('Redes de Computadores', 'fa-network-wired')">
                         <div class="materia-icon"><i class="fa-solid fa-network-wired"></i></div>
                         <h3>Redes de Computadores</h3>
                         <div class="materia-footer">
@@ -453,115 +583,387 @@
                             <span class="badge">3 Alunos</span>
                         </div>
                     </div>
-
-                    <div class="materia-card">
+                    <div class="materia-card" onclick="openMateria('Física Experimental', 'fa-flask')">
                         <div class="materia-icon"><i class="fa-solid fa-flask"></i></div>
                         <h3>Física Experimental</h3>
-                        <div class="materia-footer">
-                            <span class="badge">2 Prazos</span>
-                        </div>
+                        <div class="materia-footer"><span class="badge">2 Prazos</span></div>
                     </div>
-
-                    <div class="materia-card">
+                    <div class="materia-card" onclick="openMateria('Cálculo', 'fa-calculator')">
                         <div class="materia-icon"><i class="fa-solid fa-calculator"></i></div>
                         <h3>Cálculo</h3>
-                        <div class="materia-footer">
-                            <span class="badge">1 Prazo</span>
-                        </div>
+                        <div class="materia-footer"><span class="badge">1 Prazo</span></div>
                     </div>
-
-                    <div class="materia-card">
+                    <div class="materia-card" onclick="openMateria('Estrutura de Dados', 'fa-code-branch')">
                         <div class="materia-icon"><i class="fa-solid fa-code-branch"></i></div>
                         <h3>Estrutura de Dados</h3>
-                        <div class="materia-footer">
-                            <span class="badge">3 Prazos</span>
-                        </div>
+                        <div class="materia-footer"><span class="badge">3 Prazos</span></div>
                     </div>
-
                 </div>
             </section>
 
-            <!-- SEÇÃO 2: NOTÍCIAS & CHAT -->
             <div class="bottom-split-container">
-                
-                <!-- Central de Notícias -->
                 <div class="split-block noticias-block">
                     <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> Notícias & Avisos Gerais</h2>
                     <div class="feed-scroll">
                         <div class="feed-item urgent">
-                            <span class="feed-date">14/06/2026 - INTRODUÇÃO ÀS FUNÇÕES DE VÁRIAS VARIÁVEIS</span>
-                            <p>Nova Notícia: Data da avaliação final e conteúdos programáticos adicionados.</p>
-                        </div>
-                        <div class="feed-item">
-                            <span class="feed-date">13/06/2026 - FUNDAMENTOS DE CIÊNCIAS DOS MATERIAIS</span>
-                            <p>Tarefa alterada: Atividade Avaliativa - Unidade III prorrogada.</p>
-                        </div>
-                        <div class="feed-item">
-                            <span class="feed-date">11/06/2026 - ESTATÍSTICA</span>
-                            <p>Nova Notícia: Finalização e fechamento das notas da disciplina.</p>
-                        </div>
-                        <div class="feed-item">
-                            <span class="feed-date">09/06/2026 - ONDAS E TERMODINÂMICA</span>
-                            <p>Avaliação marcada para o dia 26/06/2026 na sala central 2.</p>
+                            <span class="feed-date">14/06/2026 - MUDANÇA DE CRONOGRAMA</span>
+                            <p>Data da avaliação final e conteúdos programáticos adicionados.</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Chat de Grupo -->
                 <div class="split-block chat-block">
                     <h2 class="section-title"><i class="fa-solid fa-comments"></i> Chat de Grupo Recente</h2>
                     <div class="chat-messages">
                         <div class="message-row">
                             <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Everton" class="chat-avatar" alt="Everton">
                             <div class="message-content">
-                                <div class="message-header"><strong>Everton</strong> <span class="time">3 min atrás</span></div>
-                                <p>Dúvida sobre lab: Já configurei a estrutura inicial do Postgres lá no GitHub.</p>
-                            </div>
-                        </div>
-                        <div class="message-row">
-                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Otavio" class="chat-avatar" alt="Otávio">
-                            <div class="message-content">
-                                <div class="message-header"><strong>Otávio</strong> <span class="time">15 min atrás</span></div>
-                                <p>Falei com o pessoal e os professores de TI curtiram a ideia do escopo do projeto.</p>
-                            </div>
-                        </div>
-                        <div class="message-row">
-                            <img src="https://avatars.githubusercontent.com/Juansitor0" class="chat-avatar" alt="Juan">
-                            <div class="message-content">
-                                <div class="message-header"><strong>Juan</strong> <span class="time">22 min atrás</span></div>
-                                <p>Bora fazer o brainstorm no Notion para fechar as regras de negócio da primeira sprint hoje.</p>
+                                <div class="message-header"><strong>Everton</strong> <span class="time">3m atrás</span></div>
+                                <p>Já configurei a estrutura inicial do Postgres lá no GitHub.</p>
                             </div>
                         </div>
                     </div>
                     <div class="chat-input-area">
-                        <input type="text" placeholder="Mande uma mensagem para o grupo...">
+                        <input type="text" placeholder="Mande uma mensagem...">
                         <button class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-materia" class="page-materia">
+            <button class="btn-back" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Voltar para Matérias</button>
+            <h1 id="materia-title" style="margin-bottom: 25px; color: #fff;">Nome da Matéria</h1>
+
+            <div class="materia-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-noticias')"><i class="fa-solid fa-bullhorn"></i> Notícias/Avisos</button>
+                <button class="tab-btn" onclick="switchTab('tab-calendario')"><i class="fa-solid fa-calendar-days"></i> Calendário/Prazos</button>
+                <button class="tab-btn" onclick="switchTab('tab-grupo')"><i class="fa-solid fa-users-gear"></i> Trabalho em Equipe</button>
+                <button class="tab-btn" onclick="switchTab('tab-chat')"><i class="fa-solid fa-comments"></i> Chat Turma</button>
+                <button class="tab-btn" onclick="switchTab('tab-notas')"><i class="fa-solid fa-file-invoice-dollar"></i> Notas</button>
+                <button class="tab-btn" onclick="switchTab('tab-alunos')"><i class="fa-solid fa-users"></i> Alunos</button>
+            </div>
+
+            <div id="tab-noticias" class="tab-content active">
+                <h3 style="margin-bottom: 15px;">Mural de Avisos da Disciplina</h3>
+                <div class="manual-form">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> Registrar aviso falado em sala</h4>
+                    <input type="text" placeholder="Ex: Professor avisou que não haverá aula na próxima terça.">
+                    <button type="button">Postar no Grupo</button>
+                </div>
+                <div class="feed-item urgent">
+                    <span class="feed-date">Sincronizado via SIGAA</span>
+                    <p>Atenção: Cadastrado no sistema as diretrizes para a Atividade Prática em Equipe da Unidade II.</p>
+                </div>
+            </div>
+
+            <div id="tab-calendario" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Cronograma de Entregas</h3>
+                <div class="manual-form">
+                    <h4><i class="fa-solid fa-calendar-plus"></i> Inserir ou Alterar Prazo Manualmente</h4>
+                    <input type="text" placeholder="Nome da avaliação ou trabalho">
+                    <input type="date">
+                    <button type="button">Salvar Cronograma</button>
+                </div>
+                <div class="feed-scroll">
+                    <div class="feed-item">
+                        <span class="feed-date">Prazo Oficial SIGAA: 08/Agosto</span>
+                        <h4>Prova de Unidade I</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-grupo" class="tab-content">
+                
+                <div id="group-list-view">
+                    <h3 style="margin-bottom: 15px;">Meus Trabalhos em Equipe</h3>
+                    
+                    <div class="manual-form">
+                        <h4><i class="fa-solid fa-folder-plus"></i> Inicializar Novo Trabalho em Grupo</h4>
+                        <input type="text" id="new-work-name" placeholder="Nome do Trabalho (Ex: Projeto Prático Unidade 2)">
+                        
+                        <div class="checkbox-group">
+                            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; margin-bottom: 5px; display: block;">
+                                Selecionar alunos da turma (Sincronizado via API):
+                            </label>
+                            <div id="membros-checkbox-container">
+                                </div>
+                        </div>
+                        <button type="button" onclick="createNewWork()">Criar Trabalho</button>
+                    </div>
+
+                    <div id="trabalhos-grid-container" class="trabalhos-criados-grid">
+                        <div class="trabalho-equipe-card" onclick="openWorkWorkspace('Projeto Prático Unidade II', ['Everton', 'Juan Carlos', 'Otávio'])">
+                            <h4><i class="fa-solid fa-folder-open" style="color: var(--brand-color); margin-right: 8px;"></i> Projeto Prático Unidade II</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Status: Ativo</p>
+                            <div class="membros-badges">
+                                <span class="badge">Everton</span>
+                                <span class="badge">Juan Carlos</span>
+                                <span class="badge">Otávio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="group-workspace-view" class="workspace-trabalho">
+                    <button class="btn-back" style="padding: 6px 12px; margin-bottom: 10px;" onclick="closeWorkWorkspace()">
+                        <i class="fa-solid fa-chevron-left"></i> Voltar para Lista de Trabalhos
+                    </button>
+                    
+                    <h3 id="workspace-title" style="color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Nome do Trabalho</h3>
+                    
+                    <div class="workspace-grid">
+                        <div>
+                            <div class="manual-form" style="margin-bottom: 15px;">
+                                <h5><i class="fa-solid fa-list-check"></i> Delegar nova etapa</h5>
+                                <input type="text" placeholder="Subtarefa (Ex: Codificar banco Postgres)">
+                                <select id="workspace-owner-select">
+                                    </select>
+                                <button type="button">Adicionar ao Quadro</button>
+                            </div>
+
+                            <div class="kanban-board">
+                                <div class="kanban-column">
+                                    <h5>A Fazer</h5>
+                                    <div class="kanban-card"><p>Configurar tabelas</p><span class="owner-badge">Everton</span></div>
+                                </div>
+                                <div class="kanban-column">
+                                    <h5>Em Andamento</h5>
+                                    <div class="kanban-card"><p>Pesquisar rotas</p><span class="owner-badge">Juan Carlos</span></div>
+                                </div>
+                                <div class="kanban-column">
+                                    <h5>Concluído</h5>
+                                    <div class="kanban-card"><p>Ajustar escopo</p><span class="owner-badge">Otávio</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="split-block" style="height: 180px; padding: 15px;">
+                                <h4 style="font-size: 0.9rem; margin-bottom: 10px;"><i class="fa-solid fa-file-shield"></i> Arquivos do Grupo</h4>
+                                <div class="upload-box">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <span>Anexar códigos ou PDFs do grupo</span>
+                                </div>
+                            </div>
+
+                            <div class="split-block" style="height: 220px; padding: 15px;">
+                                <h4 style="font-size: 0.9rem; margin-bottom: 10px;"><i class="fa-solid fa-comments"></i> Chat Privado</h4>
+                                <div class="chat-messages" style="height: 100px;">
+                                    <div class="message-row">
+                                        <div class="message-content" style="padding: 6px 10px;">
+                                            <div class="message-header"><strong>Juan Carlos</strong> <span class="time">Agora</span></div>
+                                            <p style="font-size: 0.8rem;">Já criei a tela de membros dinâmica.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chat-input-area" style="margin-top: 5px;">
+                                    <input type="text" style="padding: 8px; font-size: 0.85rem;" placeholder="Conversar com o grupo...">
+                                    <button class="btn-send" style="padding: 0 12px;"><i class="fa-solid fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
-        </main>
+
+            <div id="tab-chat" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Discussão Interna da Disciplina</h3>
+                <div class="chat-messages" style="height: 250px;">
+                    <div class="message-row">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Otavio" class="chat-avatar" alt="Otávio">
+                        <div class="message-content">
+                            <div class="message-header"><strong>Otávio</strong> <span class="time">1h atrás</span></div>
+                            <p>Alguém entendeu a questão 3 do roteiro?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" placeholder="Mande um aviso para os alunos da matéria...">
+                    <button class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <div id="tab-notas" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Simulador de Notas Interno</h3>
+                <table class="table-notas">
+                    <thead>
+                        <tr><th>Avaliação</th><th>Nota Obtida</th><th>Peso</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Unidade I (Prova)</td><td>--</td><td>4.0</td><td><span class="badge">Aguardando</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="tab-alunos" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Integrantes da Matéria</h3>
+                <div id="alunos-list-tab" class="alunos-list">
+                    </div>
+            </div>
+
+        </div>
     </div>
 
-    <!-- 📌 BARRA DE NAVEGAÇÃO INFERIOR EXCLUSIVA PARA CELULAR -->
     <nav class="mobile-nav">
-        <a href="#" class="mobile-nav-item active">
-            <i class="fa-solid fa-house"></i>
-            <span>Início</span>
-        </a>
-        <a href="#" class="mobile-nav-item">
-            <i class="fa-solid fa-bullhorn"></i>
-            <span>Avisos</span>
-        </a>
-        <a href="#" class="mobile-nav-item">
-            <i class="fa-solid fa-message"></i>
-            <span>Chat</span>
-        </a>
-        <a href="#" class="mobile-nav-item">
-            <i class="fa-solid fa-user"></i>
-            <span>Perfil</span>
-        </a>
+        <a href="#" class="mobile-nav-item active" onclick="showHome()"><i class="fa-solid fa-house"></i><span>Início</span></a>
+        <a href="#" class="mobile-nav-item"><i class="fa-solid fa-bullhorn"></i><span>Avisos</span></a>
+        <a href="#" class="mobile-nav-item"><i class="fa-solid fa-message"></i><span>Chat</span></a>
     </nav>
 
+    <script>
+        // 💾 BANCO DE DADOS SIMULADO (MOCK) DA API DO SIGAA
+        // Cada matéria tem sua lista exclusiva de alunos matriculados
+        const dadosAlunosPorMateria = {
+            "Redes de Computadores": ["Juan Carlos", "Everton", "Otávio", "Mateus Silva", "Aline Costa", "Rodrigo Santos"],
+            "Física Experimental": ["Juan Carlos", "Everton", "Bruno Lima", "Camila Souza", "Daniel Oliveira"],
+            "Cálculo": ["Juan Carlos", "Otávio", "Fernanda Rocha", "Gabriel Almeida", "Aline Costa"],
+            "Estrutura de Dados": ["Juan Carlos", "Everton", "Otávio", "Larissa Melo", "Daniel Oliveira", "Lucas Pires"]
+        };
+
+        let materiaAtual = "";
+
+        function openMateria(name, iconClass) {
+            materiaAtual = name;
+            document.getElementById('page-home').style.display = 'none';
+            document.getElementById('page-materia').style.display = 'block';
+            document.getElementById('materia-title').innerHTML = `<i class="fa-solid ${iconClass}" style="color: var(--brand-color);"></i> ${name}`;
+            
+            // 🔄 Executa as funções que simulam a coleta da API para renderizar as listas daquela matéria
+            renderizarCheckboxesMembros();
+            renderizarListaGeralDeAlunos();
+
+            switchTab('tab-noticias');
+            closeWorkWorkspace(); 
+            window.scrollTo(0, 0);
+        }
+
+        function showHome() {
+            document.getElementById('page-materia').style.display = 'none';
+            document.getElementById('page-home').style.display = 'block';
+        }
+
+        function switchTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            if(window.event && window.event.currentTarget) {
+                window.event.currentTarget.classList.add('active');
+            }
+        }
+
+        /* 👥 FUNÇÕES DE CAPTURA DINÂMICA DA "API" */
+        
+        // Renderiza os checkboxes na aba Trabalhos em Equipe baseado na matéria atual
+        function renderizarCheckboxesMembros() {
+            const container = document.getElementById('membros-checkbox-container');
+            container.innerHTML = "";
+            
+            const alunos = dadosAlunosPorMateria[materiaAtual] || ["Juan Carlos"];
+            
+            alunos.forEach(aluno => {
+                // Deixa o usuário atual (Everton, por exemplo) checado por padrão se preferir, ou lista todos normais
+                container.innerHTML += `
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="membros-grupo" value="${aluno}" id="chk-${aluno}">
+                        <label for="chk-${aluno}">${aluno}</label>
+                    </div>
+                `;
+            });
+        }
+
+        // Renderiza a lista completa da aba "Alunos" baseado na matéria atual
+        function renderizarListaGeralDeAlunos() {
+            const container = document.getElementById('alunos-list-tab');
+            container.innerHTML = "";
+            
+            const alunos = dadosAlunosPorMateria[materiaAtual] || [];
+            alunos.forEach(aluno => {
+                container.innerHTML += `
+                    <div class="aluno-item">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed=${aluno}" style="width:24px;border-radius:50%;" alt="${aluno}">
+                        <span>${aluno}</span>
+                    </div>
+                `;
+            });
+        }
+
+        /* 🤝 GERENCIADOR DOS TRABALHOS DE EQUIPE */
+        function openWorkWorkspace(workName, members) {
+            document.getElementById('group-list-view').style.display = 'none';
+            document.getElementById('group-workspace-view').style.display = 'flex';
+            document.getElementById('workspace-title').innerHTML = `<i class="fa-solid fa-people-group" style="color: var(--brand-color);"></i> Workspace: ${workName}`;
+            
+            // Popula o select do Kanban do grupo apenas com os membros que foram adicionados nesse trabalho
+            const select = document.getElementById('workspace-owner-select');
+            select.innerHTML = '<option value="">Delegar para...</option>';
+            members.forEach(m => {
+                select.innerHTML += `<option value="${m}">${m}</option>`;
+            });
+        }
+
+        function closeWorkWorkspace() {
+            document.getElementById('group-workspace-view').style.display = 'none';
+            document.getElementById('group-list-view').style.display = 'block';
+        }
+
+        // Adiciona dinamicamente um novo card de grupo na lista com os membros marcados nos checkboxes
+        function createNewWork() {
+            const nameInput = document.getElementById('new-work-name');
+            const workName = nameInput.value.trim();
+            
+            if(!workName) {
+                alert('Por favor, digite um nome para o trabalho.');
+                return;
+            }
+
+            // Captura quais checkboxes foram marcados
+            const checkboxes = document.querySelectorAll('input[name="membros-grupo"]:checked');
+            const membrosSelecionados = [];
+            checkboxes.forEach(cb => membrosSelecionados.push(cb.value));
+
+            if(membrosSelecionados.length === 0) {
+                alert('Selecione pelo menos um membro para criar a equipe.');
+                return;
+            }
+
+            // Cria o elemento visual do novo card de trabalho
+            const gridContainer = document.getElementById('trabalhos-grid-container');
+            
+            // Gera as strings das badges dos membros escolhidos
+            let badgesHTML = "";
+            membrosSelecionados.forEach(m => {
+                badgesHTML += `<span class="badge">${m}</span> `;
+            });
+
+            // Cria o elemento em string passando os dados dinâmicos para a função de clique
+            const membrosArrayString = JSON.stringify(membrosSelecionados).replace(/"/g, "'");
+            
+            const cardHTML = `
+                <div class="trabalho-equipe-card" onclick="openWorkWorkspace('${workName}', ${membrosArrayString})">
+                    <h4><i class="fa-solid fa-folder-open" style="color: var(--brand-color); margin-right: 8px;"></i> ${workName}</h4>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Status: Ativo (Manual)</p>
+                    <div class="membros-badges">
+                        ${badgesHTML}
+                    </div>
+                </div>
+            `;
+            
+            // Insere o card no topo da grid de trabalhos
+            gridContainer.insertAdjacentHTML('afterbegin', cardHTML);
+            
+            // Limpa o input
+            nameInput.value = "";
+            // Desmarca os checkboxes
+            checkboxes.forEach(cb => cb.checked = false);
+
+            alert(`Trabalho "${workName}" criado com sucesso! Clique no card gerado logo abaixo para gerenciar a equipe.`);
+        }
+    </script>
 </body>
 </html>
