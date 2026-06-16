@@ -714,31 +714,29 @@
             </section>
 
             <div class="bottom-split-container">
-                <div class="split-block noticias-block">
-                    <h2 class="section-title"><i class="fa-solid fa-newspaper"></i> Notícias & Avisos Gerais</h2>
-                    <div class="feed-scroll">
-                        <div class="feed-item urgent">
-                            <span class="feed-date">14/06/2026 - MUDANÇA DE CRONOGRAMA</span>
-                            <p>Data da avaliação final e conteúdos programáticos adicionados.</p>
+                    <div class="split-block noticias-block">
+                        <h2 class="section-title"><i class="fa-solid fa-bell-ring" style="color: var(--alert-color);"></i> Alertas de Proximidade (Urgentes)</h2>
+                        <!-- O JavaScript vai injetar os alarmes de atividades/provas aqui dentro -->
+                        <div class="feed-scroll" id="mural-alarmes-container">
+                            <!-- Espaço populado via JS -->
                         </div>
                     </div>
-                </div>
-                <div class="split-block chat-block">
-                    <h2 class="section-title"><i class="fa-solid fa-comments"></i> Chat de Grupo Recent</h2>
-                    <div class="chat-messages">
-                        <div class="message-row">
-                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Everton" class="chat-avatar" alt="Everton">
-                            <div class="message-content">
-                                <div class="message-header"><strong>Everton</strong> <span class="time">3m atrás</span></div>
-                                <p>Já configurei a estrutura inicial do Postgres lá no GitHub.</p>
+                    <div class="split-block chat-block">
+                        <h2 class="section-title"><i class="fa-solid fa-comments"></i> Chat de Grupo Recent</h2>
+                        <div class="chat-messages">
+                            <div class="message-row">
+                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Everton" class="chat-avatar" alt="Everton">
+                                <div class="message-content">
+                                    <div class="message-header"><strong>Everton</strong> <span class="time">3m atrás</span></div>
+                                    <p>Já configurei a estrutura inicial do Postgres lá no GitHub.</p>
+                                </div>
                             </div>
                         </div>
+                        <div class="chat-input-area">
+                            <input type="text" placeholder="Mande uma mensagem...">
+                            <button class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
                     </div>
-                    <div class="chat-input-area">
-                        <input type="text" placeholder="Mande uma mensagem...">
-                        <button class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -1257,6 +1255,80 @@
 
             alert(`Trabalho "${workName}" criado com sucesso! Clique no card gerado logo abaixo para gerenciar a equipe.`);
         }
+
+        // 🗓️ MOCK DE CRONOGRAMA GERAL (Sincronizado da API + Inserções Manuais)
+// Nota: Usei datas dinâmicas baseadas no ano corrente de 2026 para o teste funcionar hoje
+const cronogramaGeralPrazos = [
+    { materia: "Redes de Computadores", tipo: "Prova", titulo: "Avaliação da Unidade I (OSPF e Subredes)", data: "2026-06-17" }, // Amanhã
+    { materia: "Física Experimental", tipo: "Entrega", titulo: "Relatório Técnico: Tubo de Venturi", data: "2026-06-16" }, // Hoje
+    { materia: "Estrutura de Dados", tipo: "Trabalho", titulo: "Implementação de Pilhas e Filas em C", data: "2026-06-19" }, // Daqui a 3 dias
+    { materia: "Cálculo", tipo: "Prova", titulo: "Mini-teste de Limites", data: "2026-06-25" } // Distante (Não deve aparecer no Urgente)
+];
+
+        // ⏰ Função que calcula os alarmes de proximidade e renderiza na Home
+        function gerarAlarmesProximidade() {
+            const container = document.getElementById('mural-alarmes-container');
+            container.innerHTML = "";
+
+            // Captura a data de hoje zerando as horas para o cálculo ser exato por dia
+            const hoje = new Date();
+            hoje.setHours(0,0,0,0);
+
+            let temAlarme = false;
+
+            cronogramaGeralPrazos.forEach(prazo => {
+                const dataPrazo = new Date(prazo.data + "T00:00:00"); // Força fuso local
+                
+                // Calcula a diferença em milissegundos e converte para dias
+                const diferencaTempo = dataPrazo.getTime() - hoje.getTime();
+                const diferencaDias = Math.ceil(diferencaTempo / (1000 * 60 * 60 * 24));
+
+                let tagAlerta = "";
+                let estiloClasse = "";
+
+                // Regra de proximidade (Filtra apenas o que é para hoje, amanhã ou em até 3 dias)
+                if (diferencaDias === 0) {
+                    tagAlerta = "HOJE É O DIA! ⚠️";
+                    estiloClasse = "urgent";
+                } else if (diferencaDias === 1) {
+                    tagAlerta = "AMANHÃ! 🚨";
+                    estiloClasse = "urgent";
+                } else if (diferencaDias > 1 && diferencaDias <= 3) {
+                    tagAlerta = `Em ${diferencaDias} dias ⏳`;
+                    estiloClasse = ""; // Alerta normal de atenção
+                } else {
+                    return; // Ignora prazos distantes ou vencidos no mural urgente
+                }
+
+                temAlarme = true;
+
+                // Formata a data para o padrão BR (DD/MM)
+                const dataFormatada = dataPrazo.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+
+                // Cria o card do alarme
+                container.innerHTML += `
+                    <div class="feed-item ${estiloClasse}">
+                        <span class="feed-date" style="display:flex; justify-content:space-between;">
+                            <span>${prazo.materia.toUpperCase()} - ${prazo.tipo.toUpperCase()}</span>
+                            <strong style="color: var(--alert-color);">${tagAlerta}</strong>
+                        </span>
+                        <p><strong>${prazo.titulo}</strong></p>
+                        <small style="color: var(--text-muted); font-size: 0.75rem;">Prazo final: ${dataFormatada}</small>
+                    </div>
+                `;
+            });
+
+            if (!temAlarme) {
+                container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.9rem; padding: 15px; text-align: center;">Tudo limpo por aqui! Nenhuma atividade urgente para os próximos 3 dias. 🙌</p>`;
+            }
+        }
+
+        // 🚀 Executa a função automaticamente assim que o app inicia
+        document.addEventListener("DOMContentLoaded", () => {
+            gerarAlarmesProximidade();
+        });
+
+        
     </script>
 </body>
 </html>
