@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* 🌓 VARIÁVEIS ADAPTADAS PARA SUPORTAR AMBOS OS TEMAS */
         :root {
             --bg-dark: #121214;
             --bg-card: #202024;
@@ -16,6 +17,18 @@
             --text-muted: #8d8d99;
             --brand-color: #00b37e;
             --alert-color: #f75a68;
+            --text-white-pure: #ffffff;
+        }
+
+        /* CLASSE INVERSORA PARA O TEMA CLARO */
+        body.light-theme {
+            --bg-dark: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-hover: #f5f7fa;
+            --border-color: #dcdce2;
+            --text-main: #1c1c1e;
+            --text-muted: #686873;
+            --text-white-pure: #1c1c1e;
         }
 
         * {
@@ -31,6 +44,7 @@
             color: var(--text-main);
             overflow-x: hidden;
             padding-bottom: 70px;
+            transition: background-color 0.2s, color 0.2s; /* Transição suave na troca */
         }
 
         .app-container {
@@ -58,7 +72,7 @@
 
         .brand h1 {
             font-size: 1.6rem;
-            color: #fff;
+            color: var(--text-white-pure);
         }
 
         .logo-brackets {
@@ -71,6 +85,25 @@
             display: flex;
             align-items: center;
             gap: 20px;
+        }
+
+        /* BOTÃO SWITCH DE TEMA */
+        .btn-theme-toggle {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .btn-theme-toggle:hover {
+            border-color: var(--brand-color);
+            background-color: var(--bg-hover);
         }
 
         .search-bar {
@@ -87,7 +120,7 @@
         .search-bar input {
             background: none;
             border: none;
-            color: #fff;
+            color: var(--text-main);
             outline: none;
             width: 100%;
         }
@@ -108,7 +141,7 @@
         /* SEÇÃO DE MATÉRIAS */
         .section-title {
             font-size: 1.25rem;
-            color: #fff;
+            color: var(--text-white-pure);
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -147,7 +180,7 @@
 
         .materia-card h3 {
             font-size: 1.1rem;
-            color: #fff;
+            color: var(--text-white-pure);
         }
 
         .materia-footer {
@@ -176,6 +209,10 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .bottom-split-container { grid-template-columns: 1fr; }
         }
 
         .split-block {
@@ -249,6 +286,31 @@
             color: var(--text-muted);
         }
 
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .btn-send {
+            background-color: var(--brand-color);
+            color: #fff;
+            border: none;
+            padding: 0 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
         /* 🖥️ TELA INTERNA DA MATÉRIA */
         .page-materia {
             display: none;
@@ -294,7 +356,7 @@
 
         .tab-btn:hover, .tab-btn.active {
             background-color: var(--bg-hover);
-            color: #fff;
+            color: var(--text-white-pure);
             border-color: var(--brand-color);
         }
 
@@ -327,7 +389,7 @@
         .manual-form input, .manual-form select, .manual-form textarea {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            color: #fff;
+            color: var(--text-main);
             padding: 10px;
             border-radius: 6px;
             outline: none;
@@ -364,6 +426,51 @@
             align-self: flex-start;
         }
 
+        /* ESTILOS DA NOVA SEÇÃO DA GRADE CURRICULAR / MATERIAIS */
+        .grade-secao {
+            margin-bottom: 25px;
+        }
+        .grade-secao h4 {
+            font-size: 1rem;
+            color: var(--brand-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .grade-grid-recursos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .recurso-item-card {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: border-color 0.2s;
+        }
+        .recurso-item-card:hover {
+            border-color: var(--brand-color);
+        }
+        .recurso-item-card i {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+        }
+        .recurso-info h5 {
+            font-size: 0.9rem;
+            color: var(--text-white-pure);
+        }
+        .recurso-info span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
         /* LISTA DE TRABALHOS DE EQUIPE CRIADOS */
         .trabalhos-criados-grid {
             display: grid;
@@ -386,7 +493,7 @@
         }
 
         .trabalho-equipe-card h4 {
-            color: #fff;
+            color: var(--text-white-pure);
             margin-bottom: 10px;
         }
 
@@ -543,7 +650,7 @@
         .mobile-nav-item.active { color: var(--brand-color); }
 
         @media (max-width: 600px) {
-            .search-bar, .user-avatar span { display: none; }
+            .search-bar, .user-avatar span, .btn-theme-toggle span { display: none; }
             .materias-grid { grid-template-columns: 1fr; gap: 12px; }
             .materia-card { flex-direction: row; align-items: center; padding: 16px; }
             .materia-footer { margin-left: auto; flex-direction: column; align-items: flex-end; gap: 4px; }
@@ -560,6 +667,11 @@
                 <span class="logo-brackets">{</span><h1>SIGAA 2.0</h1><span class="logo-brackets">}</span>
             </div>
             <div class="header-right">
+                <!-- 🌓 ADICIONADO: Botão Seletor de Tema -->
+                <button class="btn-theme-toggle" id="theme-button" onclick="toggleTheme()">
+                    <i class="fa-solid fa-moon"></i> <span>Tema Escuro</span>
+                </button>
+
                 <div class="search-bar">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Buscar no sistema...">
@@ -612,7 +724,7 @@
                     </div>
                 </div>
                 <div class="split-block chat-block">
-                    <h2 class="section-title"><i class="fa-solid fa-comments"></i> Chat de Grupo Recente</h2>
+                    <h2 class="section-title"><i class="fa-solid fa-comments"></i> Chat de Grupo Recent</h2>
                     <div class="chat-messages">
                         <div class="message-row">
                             <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Everton" class="chat-avatar" alt="Everton">
@@ -632,15 +744,17 @@
 
         <div id="page-materia" class="page-materia">
             <button class="btn-back" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Voltar para Matérias</button>
-            <h1 id="materia-title" style="margin-bottom: 25px; color: #fff;">Nome da Matéria</h1>
+            <h1 id="materia-title" style="margin-bottom: 25px; color: var(--text-white-pure);">Nome da Matéria</h1>
 
             <div class="materia-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-noticias')"><i class="fa-solid fa-bullhorn"></i> Notícias/Avisos</button>
-                <button class="tab-btn" onclick="switchTab('tab-calendario')"><i class="fa-solid fa-calendar-days"></i> Calendário/Prazos</button>
-                <button class="tab-btn" onclick="switchTab('tab-grupo')"><i class="fa-solid fa-users-gear"></i> Trabalho em Equipe</button>
-                <button class="tab-btn" onclick="switchTab('tab-chat')"><i class="fa-solid fa-comments"></i> Chat Turma</button>
-                <button class="tab-btn" onclick="switchTab('tab-notas')"><i class="fa-solid fa-file-invoice-dollar"></i> Notas</button>
-                <button class="tab-btn" onclick="switchTab('tab-alunos')"><i class="fa-solid fa-users"></i> Alunos</button>
+                <button class="tab-btn active" id="btn-tab-noticias" onclick="switchTab('tab-noticias')"><i class="fa-solid fa-bullhorn"></i> Notícias/Avisos</button>
+                <button class="tab-btn" id="btn-tab-calendario" onclick="switchTab('tab-calendario')"><i class="fa-solid fa-calendar-days"></i> Calendário/Prazos</button>
+                <!-- 📚 ADICIONADO: Nova Aba de Recursos / Plano de curso -->
+                <button class="tab-btn" id="btn-tab-grade" onclick="switchTab('tab-grade')"><i class="fa-solid fa-book-open"></i> Plano de Curso & Grade</button>
+                <button class="tab-btn" id="btn-tab-grupo" onclick="switchTab('tab-grupo')"><i class="fa-solid fa-users-gear"></i> Trabalho em Equipe</button>
+                <button class="tab-btn" id="btn-tab-chat" onclick="switchTab('tab-chat')"><i class="fa-solid fa-comments"></i> Chat Turma</button>
+                <button class="tab-btn" id="btn-tab-notas" onclick="switchTab('tab-notas')"><i class="fa-solid fa-file-invoice-dollar"></i> Notas</button>
+                <button class="tab-btn" id="btn-tab-alunos" onclick="switchTab('tab-alunos')"><i class="fa-solid fa-users"></i> Alunos</button>
             </div>
 
             <div id="tab-noticias" class="tab-content active">
@@ -669,6 +783,28 @@
                         <span class="feed-date">Prazo Oficial SIGAA: 08/Agosto</span>
                         <h4>Prova de Unidade I</h4>
                     </div>
+                </div>
+            </div>
+
+            <!-- 📚 ADICIONADO: Conteúdo da Nova Aba de Plano de Curso & Grade Curricular (Dinâmico) -->
+            <div id="tab-grade" class="tab-content">
+                <h3 style="margin-bottom: 5px;">Recursos e Ementa da Disciplina</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Plano de curso coletado automaticamente via API, integrado ao Baú de Materiais.</p>
+                
+                <div class="manual-form">
+                    <h4><i class="fa-solid fa-cloud-arrow-up"></i> Adicionar Recurso Extra (Livros, Slides, Links)</h4>
+                    <input type="text" id="new-recurso-title" placeholder="Nome do material (Ex: Slide da Aula 04 - OSPF)">
+                    <select id="new-recurso-type">
+                        <option value="fa-file-powerpoint">Slide / Apresentação</option>
+                        <option value="fa-book">Livro Didático</option>
+                        <option value="fa-file-lines">Artigo Científico / Texto</option>
+                        <option value="fa-link">Link Externo (Drive/GitHub)</option>
+                    </select>
+                    <button type="button" onclick="addRecursoManual()">Inserir no Repositório</button>
+                </div>
+
+                <div id="grade-conteudo-container">
+                    <!-- Gerado de forma 100% dinâmica via JavaScript baseado na matéria selecionada -->
                 </div>
             </div>
 
@@ -709,7 +845,7 @@
                         <i class="fa-solid fa-chevron-left"></i> Voltar para Lista de Trabalhos
                     </button>
                     
-                    <h3 id="workspace-title" style="color: #fff; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Nome do Trabalho</h3>
+                    <h3 id="workspace-title" style="color: var(--text-white-pure); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Nome do Trabalho</h3>
                     
                     <div class="workspace-grid">
                         <div>
@@ -741,7 +877,7 @@
                             <div class="split-block" style="height: 180px; padding: 15px;">
                                 <h4 style="font-size: 0.9rem; margin-bottom: 10px;"><i class="fa-solid fa-file-shield"></i> Arquivos do Grupo</h4>
                                 <div class="upload-box">
-                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <i class="fa-cloud-arrow-up fa-solid"></i>
                                     <span>Anexar códigos ou PDFs do grupo</span>
                                 </div>
                             </div>
@@ -814,7 +950,6 @@
 
     <script>
         // 💾 BANCO DE DADOS SIMULADO (MOCK) DA API DO SIGAA
-        // Cada matéria tem sua lista exclusiva de alunos matriculados
         const dadosAlunosPorMateria = {
             "Redes de Computadores": ["Juan Carlos", "Everton", "Otávio", "Mateus Silva", "Aline Costa", "Rodrigo Santos"],
             "Física Experimental": ["Juan Carlos", "Everton", "Bruno Lima", "Camila Souza", "Daniel Oliveira"],
@@ -822,7 +957,76 @@
             "Estrutura de Dados": ["Juan Carlos", "Everton", "Otávio", "Larissa Melo", "Daniel Oliveira", "Lucas Pires"]
         };
 
+        // 📚 ADICIONADO: Mock de Itens de Grade/Bibliografia por Matéria (Simulando API)
+        const gradeMateriaisPorMateria = {
+            "Redes de Computadores": {
+                livros: [
+                    { nome: "Redes de Computadores e a Internet - Kurose (6ª Ed)", obs: "Livro Texto Principal" },
+                    { nome: "Redes de Computadores - Tanenbaum (5ª Ed)", obs: "Leitura Complementar" }
+                ],
+                slides: [
+                    { nome: "Apresentação Unidade 1 - Introdução às Redes", obs: "Disponibilizado em Aula" },
+                    { nome: "Apresentação Unidade 2 - Camada de Aplicação e HTTP", obs: "Atualizado" }
+                ],
+                artigos: [
+                    { nome: "RFC 793 - Transmission Control Protocol (TCP Spec)", obs: "Leitura para o Relatório" }
+                ]
+            },
+            "Física Experimental": {
+                livros: [
+                    { nome: "Física Teórica e Experimental - Halliday & Resnick", obs: "Biblioteca Central" }
+                ],
+                slides: [
+                    { nome: "Roteiro do Experimento: Tubo de Venturi", obs: "Trazer Impresso ou no Celular" },
+                    { nome: "Guia Geral de Introdução a Erros de Medidas", obs: "Obrigatório" }
+                ],
+                artigos: []
+            },
+            "Cálculo": {
+                livros: [
+                    { nome: "Cálculo Volume 1 - James Stewart (7ª Ed)", obs: "Livro Base" }
+                ],
+                slides: [
+                    { nome: "Lista de Exercícios 1 - Limites Laterais e Continuidade", obs: "Entregar resolvida" }
+                ],
+                artigos: []
+            },
+            "Estrutura de Dados": {
+                livros: [
+                    { nome: "Estruturas de Dados e Algoritmos em Java - Goodrich", obs: "Recomendado" }
+                ],
+                slides: [
+                    { nome: "Slide 01 - Revisão de Ponteiros e Alocação em C", obs: "Aula prática" },
+                    { nome: "Slide 02 - Listas Encadeadas e Pilhas", obs: "Conteúdo Unidade 1" }
+                ],
+                artigos: [
+                    { nome: "Análise Assintótica de Algoritmos (Notação Big-O)", obs: "Texto de Apoio" }
+                ]
+            }
+        };
+
         let materiaAtual = "";
+
+        // 🌓 ADICIONADO: Lógica de Alternância de Tema com Persistência
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-theme');
+            atualizarIconeTema(true);
+        }
+
+        function toggleTheme() {
+            const isLightNow = document.body.classList.toggle('light-theme');
+            localStorage.setItem('theme', isLightNow ? 'light' : 'dark');
+            atualizarIconeTema(isLightNow);
+        }
+
+        function atualizarIconeTema(isLight) {
+            const btn = document.getElementById('theme-button');
+            if (isLight) {
+                btn.innerHTML = `<i class="fa-solid fa-sun"></i> <span>Tema Claro</span>`;
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-moon"></i> <span>Tema Escuro</span>`;
+            }
+        }
 
         function openMateria(name, iconClass) {
             materiaAtual = name;
@@ -830,9 +1034,9 @@
             document.getElementById('page-materia').style.display = 'block';
             document.getElementById('materia-title').innerHTML = `<i class="fa-solid ${iconClass}" style="color: var(--brand-color);"></i> ${name}`;
             
-            // 🔄 Executa as funções que simulam a coleta da API para renderizar as listas daquela matéria
             renderizarCheckboxesMembros();
             renderizarListaGeralDeAlunos();
+            renderizarGradeCurricularMateria(); // 📚 Renderiza a nova aba dinamicamente
 
             switchTab('tab-noticias');
             closeWorkWorkspace(); 
@@ -852,14 +1056,116 @@
             buttons.forEach(btn => btn.classList.remove('active'));
 
             document.getElementById(tabId).classList.add('active');
-            if(window.event && window.event.currentTarget) {
-                window.event.currentTarget.classList.add('active');
+            
+            // Correção para mapeamento correto de botões no clique manual ou por função
+            const targetBtn = document.getElementById(`btn-${tabId}`);
+            if(targetBtn) {
+                targetBtn.classList.add('active');
             }
         }
 
-        /* 👥 FUNÇÕES DE CAPTURA DINÂMICA DA "API" */
-        
-        // Renderiza os checkboxes na aba Trabalhos em Equipe baseado na matéria atual
+        // 📚 ADICIONADO: Função para Renderizar a Grade e Materiais da Matéria Selecionada
+        function renderizarGradeCurricularMateria() {
+            const container = document.getElementById('grade-conteudo-container');
+            container.innerHTML = "";
+            
+            const dados = gradeMateriaisPorMateria[materiaAtual] || { livros: [], slides: [], artigos: [] };
+            
+            let htmlGerado = "";
+
+            // Bloco de Livros
+            htmlGerado += `
+                <div class="grade-secao">
+                    <h4><i class="fa-solid fa-book"></i> Livros e Bibliografia Sugerida</h4>
+                    <div class="grade-grid-recursos">
+            `;
+            if(dados.livros.length === 0) {
+                htmlGerado += `<p style="color:var(--text-muted); font-size:0.85rem; padding: 10px;">Nenhum livro registrado para esta matéria.</p>`;
+            } else {
+                dados.livros.forEach(l => {
+                    htmlGerado += `
+                        <a href="#" class="recurso-item-card" onclick="event.preventDefault()">
+                            <i class="fa-solid fa-book"></i>
+                            <div class="recurso-info"><h5>${l.nome}</h5><span>${l.obs}</span></div>
+                        </a>`;
+                });
+            }
+            htmlGerado += `</div></div>`;
+
+            // Bloco de Slides
+            htmlGerado += `
+                <div class="grade-secao">
+                    <h4><i class="fa-solid fa-file-powerpoint"></i> Slides e Apresentações de Aula</h4>
+                    <div class="grade-grid-recursos">
+            `;
+            if(dados.slides.length === 0) {
+                htmlGerado += `<p style="color:var(--text-muted); font-size:0.85rem; padding: 10px;">Nenhum slide anexado.</p>`;
+            } else {
+                dados.slides.forEach(s => {
+                    htmlGerado += `
+                        <a href="#" class="recurso-item-card" onclick="event.preventDefault()">
+                            <i class="fa-solid fa-file-powerpoint"></i>
+                            <div class="recurso-info"><h5>${s.nome}</h5><span>${s.obs}</span></div>
+                        </a>`;
+                });
+            }
+            htmlGerado += `</div></div>`;
+
+            // Bloco de Artigos/Links
+            htmlGerado += `
+                <div class="grade-secao">
+                    <h4><i class="fa-solid fa-file-lines"></i> Artigos, Textos e Links Úteis</h4>
+                    <div class="grade-grid-recursos">
+            `;
+            if(dados.artigos.length === 0) {
+                htmlGerado += `<p style="color:var(--text-muted); font-size:0.85rem; padding: 10px;">Nenhum texto complementar anexado.</p>`;
+            } else {
+                dados.artigos.forEach(a => {
+                    htmlGerado += `
+                        <a href="#" class="recurso-item-card" onclick="event.preventDefault()">
+                            <i class="fa-solid ${a.icone || 'fa-file-lines'}"></i>
+                            <div class="recurso-info"><h5>${a.nome}</h5><span>${a.obs}</span></div>
+                        </a>`;
+                });
+            }
+            htmlGerado += `</div></div>`;
+
+            container.innerHTML = htmlGerado;
+        }
+
+        // 📚 ADICIONADO: Adição Manual de Recursos direto no Objeto da Matéria em Tempo de Execução
+        function addRecursoManual() {
+            const titleInput = document.getElementById('new-recurso-title');
+            const typeSelect = document.getElementById('new-recurso-type');
+            
+            const titulo = titleInput.value.trim();
+            const tipoIcone = typeSelect.value;
+            
+            if(!titulo) {
+                alert('Por favor, digite o nome/título do material acadêmico.');
+                return;
+            }
+
+            if(!gradeMateriaisPorMateria[materiaAtual]) {
+                gradeMateriaisPorMateria[materiaAtual] = { livros: [], slides: [], artigos: [] };
+            }
+
+            const novoItem = { nome: titulo, obs: "Adicionado manualmente pela turma", icone: tipoIcone };
+
+            // Encaminha para o array correto baseado na seleção do tipo
+            if(tipoIcone === 'fa-book') {
+                gradeMateriaisPorMateria[materiaAtual].livros.unshift(novoItem);
+            } else if(tipoIcone === 'fa-file-powerpoint') {
+                gradeMateriaisPorMateria[materiaAtual].slides.unshift(novoItem);
+            } else {
+                gradeMateriaisPorMateria[materiaAtual].artigos.unshift(novoItem);
+            }
+
+            titleInput.value = ""; // Limpa campo
+            renderizarGradeCurricularMateria(); // Recarrega os blocos visuais
+            alert(`Sucesso! O recurso "${titulo}" foi adicionado ao baú da matéria.`);
+        }
+
         function renderizarCheckboxesMembros() {
             const container = document.getElementById('membros-checkbox-container');
             container.innerHTML = "";
@@ -867,7 +1173,6 @@
             const alunos = dadosAlunosPorMateria[materiaAtual] || ["Juan Carlos"];
             
             alunos.forEach(aluno => {
-                // Deixa o usuário atual (Everton, por exemplo) checado por padrão se preferir, ou lista todos normais
                 container.innerHTML += `
                     <div class="checkbox-item">
                         <input type="checkbox" name="membros-grupo" value="${aluno}" id="chk-${aluno}">
@@ -877,7 +1182,6 @@
             });
         }
 
-        // Renderiza a lista completa da aba "Alunos" baseado na matéria atual
         function renderizarListaGeralDeAlunos() {
             const container = document.getElementById('alunos-list-tab');
             container.innerHTML = "";
@@ -893,13 +1197,11 @@
             });
         }
 
-        /* 🤝 GERENCIADOR DOS TRABALHOS DE EQUIPE */
         function openWorkWorkspace(workName, members) {
             document.getElementById('group-list-view').style.display = 'none';
             document.getElementById('group-workspace-view').style.display = 'flex';
             document.getElementById('workspace-title').innerHTML = `<i class="fa-solid fa-people-group" style="color: var(--brand-color);"></i> Workspace: ${workName}`;
             
-            // Popula o select do Kanban do grupo apenas com os membros que foram adicionados nesse trabalho
             const select = document.getElementById('workspace-owner-select');
             select.innerHTML = '<option value="">Delegar para...</option>';
             members.forEach(m => {
@@ -912,7 +1214,6 @@
             document.getElementById('group-list-view').style.display = 'block';
         }
 
-        // Adiciona dinamicamente um novo card de grupo na lista com os membros marcados nos checkboxes
         function createNewWork() {
             const nameInput = document.getElementById('new-work-name');
             const workName = nameInput.value.trim();
@@ -922,7 +1223,6 @@
                 return;
             }
 
-            // Captura quais checkboxes foram marcados
             const checkboxes = document.querySelectorAll('input[name="membros-grupo"]:checked');
             const membrosSelecionados = [];
             checkboxes.forEach(cb => membrosSelecionados.push(cb.value));
@@ -932,16 +1232,13 @@
                 return;
             }
 
-            // Cria o elemento visual do novo card de trabalho
             const gridContainer = document.getElementById('trabalhos-grid-container');
             
-            // Gera as strings das badges dos membros escolhidos
             let badgesHTML = "";
             membrosSelecionados.forEach(m => {
                 badgesHTML += `<span class="badge">${m}</span> `;
             });
 
-            // Cria o elemento em string passando os dados dinâmicos para a função de clique
             const membrosArrayString = JSON.stringify(membrosSelecionados).replace(/"/g, "'");
             
             const cardHTML = `
@@ -954,12 +1251,8 @@
                 </div>
             `;
             
-            // Insere o card no topo da grid de trabalhos
             gridContainer.insertAdjacentHTML('afterbegin', cardHTML);
-            
-            // Limpa o input
             nameInput.value = "";
-            // Desmarca os checkboxes
             checkboxes.forEach(cb => cb.checked = false);
 
             alert(`Trabalho "${workName}" criado com sucesso! Clique no card gerado logo abaixo para gerenciar a equipe.`);
