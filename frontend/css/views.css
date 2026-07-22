@@ -1,0 +1,235 @@
+/* SEÇÃO DE MATÉRIAS */
+.section-title {
+    font-size: 1.25rem;
+    color: var(--text-white-pure);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.materias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.materia-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.materia-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--brand-color);
+    background-color: var(--bg-hover);
+}
+
+.materia-icon { font-size: 2rem; color: var(--brand-color); }
+.materia-card h3 { font-size: 1.1rem; color: var(--text-white-pure); }
+.materia-footer { display: flex; gap: 8px; margin-top: auto; }
+
+/* SPLIT BOTTOM HOME */
+.bottom-split-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.split-block {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.feed-scroll, .chat-messages {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-right: 5px;
+    flex: 1;
+}
+
+.feed-item {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.feed-item.urgent { border-left: 4px solid var(--alert-color); }
+
+.feed-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* CHAT */
+.message-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.chat-avatar { width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-hover); }
+.message-content {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    border-radius: 0 12px 12px 12px;
+    flex: 1;
+}
+.message-header { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; }
+.message-header .time { color: var(--text-muted); }
+.chat-input-area { display: flex; gap: 10px; margin-top: 15px; }
+.chat-input-area input {
+    flex: 1;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 12px;
+    border-radius: 8px;
+    outline: none;
+}
+.btn-send { background-color: var(--brand-color); color: #fff; border: none; padding: 0 16px; border-radius: 8px; cursor: pointer; }
+
+/* TELA INTERNA & ABAS */
+.page-materia { display: none; }
+.materia-tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color);
+}
+.tab-btn {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+.tab-btn:hover, .tab-btn.active {
+    background-color: var(--bg-hover);
+    color: var(--text-white-pure);
+    border-color: var(--brand-color);
+}
+.tab-content {
+    display: none;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    min-height: 350px;
+}
+.tab-content.active { display: block; }
+
+/* GRADE CURRICULAR */
+.grade-secao { margin-bottom: 25px; }
+.grade-secao h4 { font-size: 1rem; color: var(--brand-color); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.grade-grid-recursos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.recurso-item-card {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: border-color 0.2s;
+}
+.recurso-item-card:hover { border-color: var(--brand-color); }
+.recurso-item-card i { font-size: 1.3rem; color: var(--text-muted); }
+.recurso-info h5 { font-size: 0.9rem; color: var(--text-white-pure); }
+.recurso-info span { font-size: 0.75rem; color: var(--text-muted); }
+
+/* TRABALHO EM EQUIPE & KANBAN */
+.trabalhos-criados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+.trabalho-equipe-card {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.trabalho-equipe-card:hover { border-color: var(--brand-color); }
+.trabalho-equipe-card h4 { color: var(--text-white-pure); margin-bottom: 10px; }
+.trabalho-equipe-card .membros-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+
+.workspace-trabalho { display: none; flex-direction: column; gap: 20px; margin-top: 15px; }
+.workspace-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+.upload-box {
+    border: 2px dashed var(--border-color);
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+.upload-box i { font-size: 1.5rem; margin-bottom: 5px; display: block; }
+
+.kanban-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 15px; }
+.kanban-column {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.kanban-column h5 { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
+.kanban-card { background-color: var(--bg-card); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; font-size: 0.85rem; }
+.owner-badge {
+    display: inline-block;
+    margin-top: 6px;
+    background-color: var(--bg-dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--brand-color);
+    border: 1px solid var(--brand-color);
+}
+
+.alunos-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+.aluno-item { display: flex; align-items: center; gap: 12px; background-color: var(--bg-dark); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); }
+
+.table-notas { width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px; }
+.table-notas th, .table-notas td { padding: 14px; border-bottom: 1px solid var(--border-color); }
+.table-notas th { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; }
+
+@media (max-width: 900px) {
+    .bottom-split-container, .workspace-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+    .search-bar, .user-avatar span, .btn-theme-toggle span { display: none; }
+    .materias-grid { grid-template-columns: 1fr; gap: 12px; }
+    .materia-card { flex-direction: row; align-items: center; padding: 16px; }
+    .materia-footer { margin-left: auto; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .kanban-board { grid-template-columns: 1fr; }
+    .mobile-nav { display: flex; }
+}

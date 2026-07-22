@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SIGAA 2.0 - Home</title>
+    
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Módulos CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/views.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- HEADER SUPERIOR -->
+        <header class="main-header">
+            <div class="brand" onclick="showHome()">
+                <span class="logo-brackets">{</span><h1>SIGAA 2.0</h1><span class="logo-brackets">}</span>
+            </div>
+            <div class="header-right">
+                <button class="btn-theme-toggle" id="theme-button" onclick="toggleTheme()">
+                    <i class="fa-solid fa-moon"></i> <span>Tema Escuro</span>
+                </button>
+
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar no sistema...">
+                </div>
+                <div class="user-avatar">
+                    <img src="https://avatars.githubusercontent.com/Juansitor0" alt="Juan Carlos">
+                    <span>Juan Carlos</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 🏠 TELA 1: HOME -->
+        <div id="page-home" class="page-home">
+            <section class="section-materias">
+                <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Minhas Matérias</h2>
+                <div class="materias-grid">
+                    <div class="materia-card" onclick="openMateria('Redes de Computadores', 'fa-network-wired')">
+                        <div class="materia-icon"><i class="fa-solid fa-network-wired"></i></div>
+                        <h3>Redes de Computadores</h3>
+                        <div class="materia-footer">
+                            <span class="badge status-alert">3 Prazos</span>
+                            <span class="badge">3 Alunos</span>
+                        </div>
+                    </div>
+                    <div class="materia-card" onclick="openMateria('Física Experimental', 'fa-flask')">
+                        <div class="materia-icon"><i class="fa-solid fa-flask"></i></div>
+                        <h3>Física Experimental</h3>
+                        <div class="materia-footer"><span class="badge">2 Prazos</span></div>
+                    </div>
+                    <div class="materia-card" onclick="openMateria('Cálculo', 'fa-calculator')">
+                        <div class="materia-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <h3>Cálculo</h3>
+                        <div class="materia-footer"><span class="badge">1 Prazo</span></div>
+                    </div>
+                    <div class="materia-card" onclick="openMateria('Estrutura de Dados', 'fa-code-branch')">
+                        <div class="materia-icon"><i class="fa-solid fa-code-branch"></i></div>
+                        <h3>Estrutura de Dados</h3>
+                        <div class="materia-footer"><span class="badge">3 Prazos</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="bottom-split-container">
+                <div class="split-block noticias-block">
+                    <h2 class="section-title"><i class="fa-solid fa-bell-ring" style="color: var(--alert-color);"></i> Alertas de Proximidade (Urgentes)</h2>
+                    <div class="feed-scroll" id="mural-alarmes-container"></div>
+                </div>
+                <div class="split-block chat-block">
+                    <h2 class="section-title"><i class="fa-solid fa-comments"></i> Chat de Grupo Recente</h2>
+                    <div class="chat-messages">
+                        <div class="message-row">
+                            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Everton" class="chat-avatar" alt="Everton">
+                            <div class="message-content">
+                                <div class="message-header"><strong>Everton</strong> <span class="time">3m atrás</span></div>
+                                <p>Já configurei a estrutura inicial do Postgres lá no GitHub.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" placeholder="Mande uma mensagem...">
+                        <button class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📖 TELA 2: ÁREA INTERNA DA MATÉRIA -->
+        <div id="page-materia" class="page-materia">
+            <button class="btn-back" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Voltar para Matérias</button>
+            <h1 id="materia-title" style="margin-bottom: 25px; color: var(--text-white-pure);">Nome da Matéria</h1>
+
+            <div class="materia-tabs">
+                <button class="tab-btn active" id="btn-tab-noticias" onclick="switchTab('tab-noticias')"><i class="fa-solid fa-bullhorn"></i> Notícias/Avisos</button>
+                <button class="tab-btn" id="btn-tab-calendario" onclick="switchTab('tab-calendario')"><i class="fa-solid fa-calendar-days"></i> Calendário/Prazos</button>
+                <button class="tab-btn" id="btn-tab-grade" onclick="switchTab('tab-grade')"><i class="fa-solid fa-book-open"></i> Plano de Curso & Grade</button>
+                <button class="tab-btn" id="btn-tab-grupo" onclick="switchTab('tab-grupo')"><i class="fa-solid fa-users-gear"></i> Trabalho em Equipe</button>
+                <button class="tab-btn" id="btn-tab-chat" onclick="switchTab('tab-chat')"><i class="fa-solid fa-comments"></i> Chat Turma</button>
+                <button class="tab-btn" id="btn-tab-notas" onclick="switchTab('tab-notas')"><i class="fa-solid fa-file-invoice-dollar"></i> Notas</button>
+                <button class="tab-btn" id="btn-tab-alunos" onclick="switchTab('tab-alunos')"><i class="fa-solid fa-users"></i> Alunos</button>
+            </div>
+
+            <!-- CONTEÚDO DAS ABAS -->
+            <div id="tab-noticias" class="tab-content active">
+                <h3 style="margin-bottom: 15px;">Mural de Avisos da Disciplina</h3>
+                <div class="manual-form">
+                    <h4><i class="fa-solid fa-pen-to-square"></i> Registrar aviso falado em sala</h4>
+                    <input type="text" placeholder="Ex: Professor avisou que não haverá aula na próxima terça.">
+                    <button type="button">Postar no Grupo</button>
+                </div>
+                <div class="feed-item urgent">
+                    <span class="feed-date">Sincronizado via SIGAA</span>
+                    <p>Atenção: Cadastrado no sistema as diretrizes para a Atividade Prática em Equipe da Unidade II.</p>
+                </div>
+            </div>
+
+            <div id="tab-calendario" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Cronograma de Entregas</h3>
+                <div class="manual-form">
+                    <h4><i class="fa-solid fa-calendar-plus"></i> Inserir ou Alterar Prazo Manualmente</h4>
+                    <input type="text" placeholder="Nome da avaliação ou trabalho">
+                    <input type="date">
+                    <button type="button">Salvar Cronograma</button>
+                </div>
+                <div class="feed-scroll">
+                    <div class="feed-item">
+                        <span class="feed-date">Prazo Oficial SIGAA: 08/Agosto</span>
+                        <h4>Prova de Unidade I</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-grade" class="tab-content">
+                <h3 style="margin-bottom: 5px;">Recursos e Ementa da Disciplina</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Plano de curso coletado automaticamente via API, integrado ao Baú de Materiais.</p>
+                
+                <div class="manual-form">
+                    <h4><i class="fa-solid fa-cloud-arrow-up"></i> Adicionar Recurso Extra (Livros, Slides, Links)</h4>
+                    <input type="text" id="new-recurso-title" placeholder="Nome do material (Ex: Slide da Aula 04 - OSPF)">
+                    <select id="new-recurso-type">
+                        <option value="fa-file-powerpoint">Slide / Apresentação</option>
+                        <option value="fa-book">Livro Didático</option>
+                        <option value="fa-file-lines">Artigo Científico / Texto</option>
+                        <option value="fa-link">Link Externo (Drive/GitHub)</option>
+                    </select>
+                    <button type="button" onclick="addRecursoManual()">Inserir no Repositório</button>
+                </div>
+
+                <div id="grade-conteudo-container"></div>
+            </div>
+
+            <div id="tab-grupo" class="tab-content">
+                <div id="group-list-view">
+                    <h3 style="margin-bottom: 15px;">Meus Trabalhos em Equipe</h3>
+                    <div class="manual-form">
+                        <h4><i class="fa-solid fa-folder-plus"></i> Inicializar Novo Trabalho em Grupo</h4>
+                        <input type="text" id="new-work-name" placeholder="Nome do Trabalho (Ex: Projeto Prático Unidade 2)">
+                        
+                        <div class="checkbox-group">
+                            <label style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; margin-bottom: 5px; display: block;">
+                                Selecionar alunos da turma (Sincronizado via API):
+                            </label>
+                            <div id="membros-checkbox-container"></div>
+                        </div>
+                        <button type="button" onclick="createNewWork()">Criar Trabalho</button>
+                    </div>
+
+                    <div id="trabalhos-grid-container" class="trabalhos-criados-grid">
+                        <div class="trabalho-equipe-card" onclick="openWorkWorkspace('Projeto Prático Unidade II', ['Everton', 'Juan Carlos', 'Otávio'])">
+                            <h4><i class="fa-solid fa-folder-open" style="color: var(--brand-color); margin-right: 8px;"></i> Projeto Prático Unidade II</h4>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Status: Ativo</p>
+                            <div class="membros-badges">
+                                <span class="badge">Everton</span>
+                                <span class="badge">Juan Carlos</span>
+                                <span class="badge">Otávio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="group-workspace-view" class="workspace-trabalho">
+                    <button class="btn-back" style="padding: 6px 12px; margin-bottom: 10px;" onclick="closeWorkWorkspace()">
+                        <i class="fa-solid fa-chevron-left"></i> Voltar para Lista de Trabalhos
+                    </button>
+                    
+                    <h3 id="workspace-title" style="color: var(--text-white-pure); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Nome do Trabalho</h3>
+                    
+                    <div class="workspace-grid">
+                        <div>
+                            <div class="manual-form" style="margin-bottom: 15px;">
+                                <h5><i class="fa-solid fa-list-check"></i> Delegar nova etapa</h5>
+                                <input type="text" placeholder="Subtarefa (Ex: Codificar banco Postgres)">
+                                <select id="workspace-owner-select"></select>
+                                <button type="button">Adicionar ao Quadro</button>
+                            </div>
+
+                            <div class="kanban-board">
+                                <div class="kanban-column">
+                                    <h5>A Fazer</h5>
+                                    <div class="kanban-card"><p>Configurar tabelas</p><span class="owner-badge">Everton</span></div>
+                                </div>
+                                <div class="kanban-column">
+                                    <h5>Em Andamento</h5>
+                                    <div class="kanban-card"><p>Pesquisar rotas</p><span class="owner-badge">Juan Carlos</span></div>
+                                </div>
+                                <div class="kanban-column">
+                                    <h5>Concluído</h5>
+                                    <div class="kanban-card"><p>Ajustar escopo</p><span class="owner-badge">Otávio</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div class="split-block" style="height: 180px; padding: 15px;">
+                                <h4 style="font-size: 0.9rem; margin-bottom: 10px;"><i class="fa-solid fa-file-shield"></i> Arquivos do Grupo</h4>
+                                <div class="upload-box">
+                                    <i class="fa-cloud-arrow-up fa-solid"></i>
+                                    <span>Anexar códigos ou PDFs do grupo</span>
+                                </div>
+                            </div>
+
+                            <div class="split-block" style="height: 220px; padding: 15px;">
+                                <h4 style="font-size: 0.9rem; margin-bottom: 10px;"><i class="fa-solid fa-comments"></i> Chat Privado</h4>
+                                <div class="chat-messages" style="height: 100px;">
+                                    <div class="message-row">
+                                        <div class="message-content" style="padding: 6px 10px;">
+                                            <div class="message-header"><strong>Juan Carlos</strong> <span class="time">Agora</span></div>
+                                            <p style="font-size: 0.8rem;">Já criei a tela de membros dinâmica.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="chat-input-area" style="margin-top: 5px;">
+                                    <input type="text" style="padding: 8px; font-size: 0.85rem;" placeholder="Conversar com o grupo...">
+                                    <button class="btn-send" style="padding: 0 12px;"><i class="fa-solid fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-chat" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Discussão Interna da Disciplina</h3>
+                <div class="chat-messages" style="height: 250px;">
+                    <div class="message-row">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Otavio" class="chat-avatar" alt="Otávio">
+                        <div class="message-content">
+                            <div class="message-header"><strong>Otávio</strong> <span class="time">1h atrás</span></div>
+                            <p>Alguém entendeu a questão 3 do roteiro?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" placeholder="Mande um aviso para os alunos da matéria...">
+                    <button class="btn-send"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+
+            <div id="tab-notas" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Simulador de Notas Interno</h3>
+                <table class="table-notas">
+                    <thead>
+                        <tr><th>Avaliação</th><th>Nota Obtida</th><th>Peso</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Unidade I (Prova)</td><td>--</td><td>4.0</td><td><span class="badge">Aguardando</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="tab-alunos" class="tab-content">
+                <h3 style="margin-bottom: 15px;">Integrantes da Matéria</h3>
+                <div id="alunos-list-tab" class="alunos-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegação Mobile -->
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-item active" onclick="showHome()"><i class="fa-solid fa-house"></i><span>Início</span></a>
+        <a href="#" class="mobile-nav-item"><i class="fa-solid fa-bullhorn"></i><span>Avisos</span></a>
+        <a href="#" class="mobile-nav-item"><i class="fa-solid fa-message"></i><span>Chat</span></a>
+    </nav>
+
+    <!-- Módulos JS -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
