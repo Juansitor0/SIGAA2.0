@@ -1,7 +1,7 @@
 import pickle
 from pathlib import Path
-import requests
-
+import requests 
+from parser import extrair_notas, atualizar_view_state
 
 
 class SigaaClient:
@@ -23,6 +23,7 @@ class SigaaClient:
         })
 
         self.cookie_file = Path("cookies.pkl")
+        self.view_state = None
 
     def login(self, usuario, senha):
 
@@ -44,6 +45,9 @@ class SigaaClient:
         )
 
         print("Status:", r.status_code)
+
+        self.view_state = atualizar_view_state(r.text)
+        print("ViewState:", self.view_state)
 
         self.salvar_cookies()
 
@@ -81,8 +85,30 @@ class SigaaClient:
     def post(self, url, data):
 
         return self.session.post(url, data=data)
+    
+
+    def obter_notas(self):
+
+        url = "https://sigaa.ufersa.edu.br/sigaa/portais/discente/discente.jsf"
+
+
+        payload = {
+            "menu:form_menu_discente": "menu:form_menu_discente",
+            "id": "437946",
+            "jscook_action": "menu_form_menu_discente_discente_menu:A]#{ relatorioNotasAluno.gerarRelatorio }",
+            "javax.faces.ViewState": self.view_state
+        }
+
+        resposta = self.session.post(url, data=payload)
+
+        novo_view_state = atualizar_view_state(resposta.text)
+        if novo_view_state:
+            self.view_state = novo_view_state
+
+        return extrair_notas(resposta.text)
 
     @property
     def jsessionid(self):
 
         return self.session.cookies.get("JSESSIONID")
+    

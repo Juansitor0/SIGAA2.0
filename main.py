@@ -1,21 +1,18 @@
 from sigaa_client import SigaaClient
 
 cliente = SigaaClient()
+user = "hemersonfelipe"
+senha = "hemersonsiga123"
 
-cliente.login(
-    "user",
-    "password"
-)
-
-print()
-
-print("JSESSIONID:")
-print(cliente.jsessionid)
+cliente.login(user, senha)
+notas = cliente.obter_notas()
 
 html = cliente.get(
     "https://sigaa.ufersa.edu.br/sigaa/portais/discente/discente.jsf"
 )
 
-print(html.text)
+for disciplinas in notas:
+    print(disciplinas)
 
+print()
 cliente.mostrar_cookies()
