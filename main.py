@@ -1,8 +1,8 @@
 from sigaa_client import SigaaClient
 
 cliente = SigaaClient()
-user = "hemersonfelipe"
-senha = "hemersonsiga123"
+user = "usuario_exemplo"
+senha = "senha_exemplo"
 
 cliente.login(user, senha)
 notas = cliente.obter_notas()
