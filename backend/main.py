@@ -1,8 +1,8 @@
-from backend.sigaa_client import SigaaClient
+from services.sigaa_client import SigaaClient
 
 cliente = SigaaClient()
-user = "everton.lima"
-senha = "Noismane34-5"
+user = "exemplo"
+senha = "exemplo"
 
 cliente.login(user, senha)
 notas = cliente.obter_notas()

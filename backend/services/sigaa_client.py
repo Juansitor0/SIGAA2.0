@@ -1,7 +1,7 @@
 import pickle
 from pathlib import Path
 import requests 
-from backend.parser import extrair_notas, atualizar_view_state
+from services.parser import extrair_notas, atualizar_view_state
 
 
 class SigaaClient:
