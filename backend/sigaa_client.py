@@ -1,7 +1,7 @@
 import pickle
 from pathlib import Path
 import requests 
-from parser import extrair_notas, atualizar_view_state
+from backend.parser import extrair_notas, atualizar_view_state
 
 
 class SigaaClient:
@@ -90,7 +90,6 @@ class SigaaClient:
     def obter_notas(self):
 
         url = "https://sigaa.ufersa.edu.br/sigaa/portais/discente/discente.jsf"
-
 
         payload = {
             "menu:form_menu_discente": "menu:form_menu_discente",
