@@ -7,6 +7,9 @@ class Disciplina:
 
     codigo: str
     nome: str
+    front_end_id: str
+    professor: str
+    periodo: str
 
     nota1: float | None = None
     nota2: float | None = None

@@ -11,3 +11,5 @@ class Atividade:
     entregue: bool = False
     nota: float | None = None
     link: str = ""
+
+
